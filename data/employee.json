@@ -1,0 +1,9 @@
+{
+  "firstName": "John",
+  "lastName": "QA",
+  "employeeId": "QA${timestamp}",
+  "jobTitle": "QA Engineer",
+  "employmentStatus": "Full-Time Permanent",
+  "updatedJobTitle": "QA Lead",
+  "profilePicture": "assets/profile-picture.png"
+}
