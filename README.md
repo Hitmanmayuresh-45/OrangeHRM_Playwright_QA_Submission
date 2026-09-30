@@ -1,115 +1,98 @@
-# QA Automation Technical Assessment 
+# QA Automation Technical Assessment
 
-This project implements the Employee Lifecycle Management assessment using **Playwright + TypeScript + Page Object Model (POM)**.
+## Overview
 
-## Assessment coverage
+This project automates the Employee Lifecycle Management flow using **Playwright, TypeScript, and Page Object Model (POM)** against the OrangeHRM demo application.
 
-1. Login with valid OrangeHRM credentials and verify Dashboard.
-2. Add a new employee using JSON-driven data.
-3. Upload a profile picture.
-4. Search by Employee ID.
-5. Update Job Title and Employment Status.
-6. Validate employee-like data using a public API simulation through Playwright APIRequest.
-7. Delete the employee from UI and validate API DELETE response.
-8. Logout and verify the login page/session boundary.
+The automation covers employee creation, search, update, API validation, deletion, and logout.
 
-The supplied assessment explicitly permits Playwright/Selenium with JavaScript/TypeScript/Python/Java, requires POM, meaningful assertions, a test runner, HTML reporting, video, and a README. 
+## Assessment Coverage
 
-## Why ReqRes is used
+The automated test covers the following flow:
 
-The OrangeHRM public demo is used for the complete UI lifecycle. The assessment allows a simulated public test API when an OrangeHRM API is not available. ReqRes provides CRUD endpoints suitable for API automation.
+1. Login to OrangeHRM using valid credentials.
+2. Verify the Dashboard.
+3. Navigate to PIM and add a new employee.
+4. Read employee test data from JSON.
+5. Upload an employee profile picture.
+6. Search for the employee using Employee ID.
+7. Update Job Title and Employment Status.
+8. Validate employee-like data using a public API through Playwright APIRequest.
+9. Delete the employee from the OrangeHRM UI.
+10. Verify that the deleted employee is no longer available.
+11. Logout and verify the login page/session boundary.
 
-Important: the current ReqRes anonymous demo write endpoints return realistic CRUD responses but anonymous writes are not persistent. Therefore the API section validates the create/update payload and the DELETE contract/status, while the actual employee existence/deletion is verified against OrangeHRM UI. For persistent API-to-UI reconciliation, configure a ReqRes project/API key and replace the adapter with a persistent collection endpoint.
+## Application Under Test
 
-## Project structure
+**OrangeHRM Demo**
+
+https://opensource-demo.orangehrmlive.com/
+
+## Technology Stack
+
+- Playwright
+- TypeScript
+- Node.js
+- Page Object Model (POM)
+- Playwright APIRequest
+- JSON test data
+- GitHub Actions
+- Playwright HTML Report
+
+## Project Structure
 
 ```text
-pages/
-  LoginPage.ts
-  PimPage.ts
-  DashboardPage.ts
-tests/
-  employee-lifecycle.spec.ts
-data/
-  employee.json
-utils/
-  apiClient.ts
-  testData.ts
-assets/
-  profile-picture.png
-playwright.config.ts
-package.json
-tsconfig.json
-README.md
-```
+OrangeHRM_Playwright_QA_Submission/
+│
+├── pages/
+│   ├── LoginPage.ts
+│   ├── PimPage.ts
+│   └── DashboardPage.ts
+│
+├── tests/
+│   └── employee-lifecycle.spec.ts
+│
+├── data/
+│   └── employee.json
+│
+├── utils/
+│   ├── apiClient.ts
+│   └── testData.ts
+│
+├── assets/
+│   └── profile-picture.png
+│
+├── .github/
+│   └── workflows/
+│       └── playwright.yml
+│
+├── playwright.config.ts
+├── package.json
+├── tsconfig.json
+├── .env.example
+└── README.md
 
-## Prerequisites
-
-- Node.js 18+
-- npm
-- Internet access to OrangeHRM demo and ReqRes
-
-## Setup
-
-```bash
-npm install
-npx playwright install --with-deps chromium
-```
-
-Optional environment variables:
-
-```bash
-cp .env.example .env
-```
-
-Default OrangeHRM demo credentials are currently documented as `Admin` / `admin123`. Keep credentials in environment variables for a real submission rather than hard-coding them.
-
-## Run
-
-```bash
-npm test
-```
-
-Headed:
-
-```bash
-npm run test:headed
-```
-
-Debug:
-
-```bash
-npm run test:debug
-```
-
-Open HTML report:
-
-```bash
-npm run report
-```
-
-Type-check:
-
-```bash
-npm run lint
-```
-
-## Reports and evidence
-
-Playwright generates:
-
-- HTML report: `playwright-report/`
-- Video: `test-results/`
-- Trace/screenshot on failure: `test-results/`
-
-## CI/CD
-
-The test can be run from GitHub Actions or Azure DevOps. Store credentials/API keys as secrets.
-
-## Notes for reviewer
-
-- Data is generated dynamically for Employee ID to reduce collisions between executions.
-- Page Objects isolate UI locators and actions from test flow.
-- `test.step()` creates readable business-level reporting.
-- API validation is deliberately separated into an API client so the backend can be replaced without rewriting the UI test.
-- The OrangeHRM demo site may change selectors or reset data. If selectors change, update only the affected Page Object.
+**Test Flow**
+Login
+  ↓
+Verify Dashboard
+  ↓
+Add Employee
+  ↓
+Upload Profile Picture
+  ↓
+Search Employee
+  ↓
+Update Job Title
+  ↓
+Update Employment Status
+  ↓
+API Validation
+  ↓
+Delete Employee
+  ↓
+Verify Employee Deleted
+  ↓
+Logout
+  ↓
+Verify Login Page
