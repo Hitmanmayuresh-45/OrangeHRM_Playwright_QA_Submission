@@ -1,4 +1,4 @@
-# OrangeHRM Employee Lifecycle – Playwright Automation
+# QA Automation Technical Assessment 
 
 This project implements the Employee Lifecycle Management assessment using **Playwright + TypeScript + Page Object Model (POM)**.
 
